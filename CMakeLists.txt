@@ -8,7 +8,11 @@ add_executable(knowledge
     src/core/types/string_view.c
     src/core/logger/logger.c
     src/core/window/window.c
-    src/core/application.c)
+    src/core/application.c
+    src/core/types/color.c
+    include/core/renderer/dx9.h
+    include/core/window/win32.h
+    src/core/renderer/dx9.c)
 
 target_link_libraries(knowledge PRIVATE d3d9)
 

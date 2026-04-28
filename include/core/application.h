@@ -1,6 +1,7 @@
 #pragma once
 #include "types/types.h"
 #include "window/window.h"
+#include "renderer/renderer.h"
 
 typedef struct {
     b8 is_running;
@@ -20,6 +21,7 @@ typedef struct {
 typedef struct {
     application_details_t details;
     window_t window;
+    renderer_t renderer;
 } application_t;
 
 void application_create(application_t* app);

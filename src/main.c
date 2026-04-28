@@ -10,6 +10,7 @@ i32 main(void) {
         application_run(&app);
     }
 
-    log_msg(LOG_LEVEL_INFO, "goodbye!");
+    application_destroy(&app);
+    log_msg(LOG_LEVEL_INFO, "leaving main()...");
     return 0;
 }

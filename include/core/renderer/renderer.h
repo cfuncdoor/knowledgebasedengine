@@ -1,24 +1,20 @@
 #pragma once
-#include <windows.h>
-#include <d3d9.h>
-#include "core/types/types.h"
+#include "dx9.h"
+#include "core/window/window.h"
 
-typedef struct {
-    IDirect3DDevice9* handle; 
-    D3DPRESENT_PARAMETERS params; 
-} dx9_device_t;
+typedef struct renderer_state_s {
+    b8 is_initialized;
+    b8 is_rendering;
+} renderer_state_t;
 
-typedef struct {
-    IDirect3D9* instance;      
-    dx9_device_t device;
-} dx9_context_t;
+typedef struct renderer_s {
+    window_t* window; // window context of renderer
+    dx9_t dx; //dx context of renderer
+    renderer_state_t state; // state of renderer;
+} renderer_t;
 
-typedef struct {
-    dx9_context_t context;
-} dx9_t;
-
-void dx9_create(dx9_t* dx, HWND hwnd, u32 width, u32 height);
-void dx9_render(dx9_t* dx);
-void dx9_destroy(dx9_t* dx);
-
-void setup_pixel_format(HDC hdc);
+void renderer_initialize(renderer_t* renderer);
+void renderer_beginframe(renderer_t* renderer);
+void renderer_endframe(renderer_t* renderer);
+void renderer_on_resize(renderer_t *renderer, u32 width, u32 height);
+void renderer_destroy(renderer_t* renderer);

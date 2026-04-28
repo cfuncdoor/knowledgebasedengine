@@ -1,6 +1,5 @@
 #include "core/window/window.h"
 #include "core/logger/logger.h"
-#include "core/renderer/renderer.h"
 
 static LRESULT CALLBACK window_callback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     switch (uMsg) {
@@ -68,11 +67,10 @@ void window_create(window_t* window, i32 width, i32 height, string_view title) {
     log_msg(LOG_LEVEL_INFO, "created window '%s' : %s ", window->details.title.data, wc.lpszClassName);
 
     window->win.context.hdc = GetDC(window->win.hwnd);
-    dx9_create(&window->dx, window->win.hwnd, window->details.width, window->details.height);
 }
 
 void window_destroy(window_t* window) 
 {
+    log_msg(LOG_LEVEL_INFO, "destroying the window...");
     ReleaseDC(window->win.hwnd, window->win.context.hdc);
-    dx9_destroy(&window->dx);
 }

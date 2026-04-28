@@ -1,26 +1,17 @@
 #pragma once
 #include <windows.h>
 #include "core/types/types.h"
-#include "core/renderer/renderer.h"
+#include "core/renderer/dx9.h"
+#include "win32.h"
 
-typedef struct {
-    HDC hdc;
-} win32_context_t;
-
-typedef struct {
-    HWND hwnd;
-    HINSTANCE hinstance;
-    win32_context_t context;
-} win32_t;
-
-typedef struct {
+typedef struct window_details_s {
     u32 width;
     u32 height;
     string_view title;
     string_view class_name;
 } window_details_t;
 
-typedef struct {
+typedef struct window_s {
     win32_t win;
     dx9_t dx;
     window_details_t details;

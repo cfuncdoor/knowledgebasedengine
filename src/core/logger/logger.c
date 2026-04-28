@@ -7,7 +7,7 @@
 void set_console_color(log_level level) {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     switch ((i32)level) {
-        case LOG_LEVEL_INFO:  SetConsoleTextAttribute(hConsole, 10); break; 
+        case LOG_LEVEL_INFO:  SetConsoleTextAttribute(hConsole, 1); break; 
         case LOG_LEVEL_WARN:  SetConsoleTextAttribute(hConsole, 14); break; 
         case LOG_LEVEL_ERROR: SetConsoleTextAttribute(hConsole, 12); break; 
         case LOG_LEVEL_FATAL: SetConsoleTextAttribute(hConsole, 79); break;
