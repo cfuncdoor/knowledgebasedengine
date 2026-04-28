@@ -8,7 +8,7 @@
 
 void application_create(application_t *app) 
 {
-    int window_counter = 0;
+    i32 window_counter = 0;
     string_view name;
     {
         name.data = "Knowledge Based App";
