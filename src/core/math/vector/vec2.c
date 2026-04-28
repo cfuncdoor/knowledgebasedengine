@@ -1,4 +1,4 @@
-#include "vec2.h"
+#include "core/math/vector/vec2.h"
 
 f32 vec2_dot(vec2_t a, vec2_t b) 
 {

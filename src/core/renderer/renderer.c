@@ -1,9 +1,13 @@
-#include "renderer.h"
-#include "../math/vertex/vertex.h"
+#include "core/renderer/renderer.h"
+#include "core/math/vertex/vertex.h"
+#include "core/logger/logger.h"
 #include <d3d9.h>
 #include <d3d9types.h>
+#include <winerror.h>
 
-void dx9_create(dx9_t *dx, HWND hwnd, i32 width, i32 height) 
+#define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZRHW | D3DFVF_DIFFUSE)
+
+void dx9_create(dx9_t *dx, HWND hwnd, u32 width, u32 height) 
 {
     dx->context.instance = Direct3DCreate9(D3D_SDK_VERSION);
     memset(&dx->context.device.params, 0, sizeof(dx->context.device.params));
@@ -14,15 +18,34 @@ void dx9_create(dx9_t *dx, HWND hwnd, i32 width, i32 height)
     dx->context.device.params.BackBufferWidth = width;
     dx->context.device.params.BackBufferHeight = height;
 
-    dx->context.instance->lpVtbl->CreateDevice(
-        dx->context.instance,
-        D3DADAPTER_DEFAULT,
-        D3DDEVTYPE_HAL,
-        hwnd,
-        D3DCREATE_SOFTWARE_VERTEXPROCESSING,
-        &dx->context.device.params,
-        &dx->context.device.handle
-    );
+    {
+        HRESULT result = dx->context.instance->lpVtbl->CreateDevice(
+            dx->context.instance,
+            D3DADAPTER_DEFAULT,
+            D3DDEVTYPE_HAL,
+            hwnd,
+            D3DCREATE_SOFTWARE_VERTEXPROCESSING,
+            &dx->context.device.params,
+            &dx->context.device.handle
+        );
+
+        if(SUCCEEDED(result)) {
+            log_msg(LOG_LEVEL_INFO, "created directX device");
+        } else if(FAILED(result)) {
+            log_msg(LOG_LEVEL_ERROR, "failed to create the directx device: 0x%08x", (u32)result);
+            return;
+        }
+    }
+
+}
+
+void dx9_destroy(dx9_t* dx) {
+    if (dx->context.device.handle) {
+        dx->context.device.handle->lpVtbl->Release(dx->context.device.handle);
+    }
+    if (dx->context.instance) {
+        dx->context.instance->lpVtbl->Release(dx->context.instance);
+    }
 }
 
 void dx9_render(dx9_t *dx) 
@@ -55,21 +78,4 @@ void dx9_render(dx9_t *dx)
     }
 
    dx->context.device.handle->lpVtbl->Present(dx->context.device.handle, NULL, NULL, NULL, NULL);
-}
-
-void setup_pixel_format(HDC hdc) 
-{
-    PIXELFORMATDESCRIPTOR pfd = {
-        sizeof(PIXELFORMATDESCRIPTOR),
-        1,
-        PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,
-        PFD_TYPE_RGBA,
-        32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        24,
-        8,  
-        0, PFD_MAIN_PLANE, 0, 0, 0, 0
-    };
-
-    int visual_format = ChoosePixelFormat(hdc, &pfd);
-    SetPixelFormat(hdc, visual_format, &pfd);
 }
