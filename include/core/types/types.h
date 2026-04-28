@@ -23,4 +23,8 @@ typedef struct {
     u64 len;
 } string_view;
 
+typedef struct { //TODO: this
+    
+} color_t;
+
 b8 sv_equals(string_view a, string_view b);
