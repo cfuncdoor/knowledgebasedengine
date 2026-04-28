@@ -3,9 +3,9 @@
 #include "core/renderer/dx9.h"
 #include "core/math/vertex/vertex.h"
 
-void renderer_initialize(renderer_t *renderer) 
+void renderer_initialize(renderer_t *renderer, window_t* window) 
 {
-    if (!renderer->window) {
+    if (!window) {
         log_msg(LOG_LEVEL_ERROR, "renderer has no window attached");
         return;
     }
@@ -13,9 +13,9 @@ void renderer_initialize(renderer_t *renderer)
     log_msg(LOG_LEVEL_INFO, "creating the directX device");
 
     dx9_device_create(&renderer->dx, 
-                    renderer->window->win.hwnd, 
-                    renderer->window->details.width, 
-                    renderer->window->details.height);
+                    window->win.hwnd, 
+                    window->details.width, 
+                    window->details.height);
 
     vertex_t vertices[] = {
         { 100.0f, 100.0f, 0.0f, 1.0f, D3DCOLOR_XRGB(255, 0, 0) },
@@ -29,6 +29,7 @@ void renderer_initialize(renderer_t *renderer)
     dx9_create_buffer(&renderer->dx, vertices, v_count);
 
     log_msg(LOG_LEVEL_INFO, "initialized the renderer successfully!");
+    renderer->window = window; // assign internal renderer_s::window_t
 }
 
 void renderer_beginframe(renderer_t *renderer) 

@@ -23,9 +23,8 @@ void application_create(application_t *app)
     app->window.details.class_name.len = (i32)strlen(buffer);
 
     window_create(&app->window, 800, 600, name);
-
-    app->renderer.window = &app->window;
-    renderer_initialize(&app->renderer);
+    
+    renderer_initialize(&app->renderer, &app->window);
 
     log_msg(LOG_LEVEL_INFO, "created application '%s': %d ", name.data, app->details.data.id);
     window_counter++;

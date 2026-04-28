@@ -13,7 +13,7 @@ typedef struct renderer_s {
     renderer_state_t state; // state of renderer;
 } renderer_t;
 
-void renderer_initialize(renderer_t* renderer);
+void renderer_initialize(renderer_t* renderer, window_t* window);
 void renderer_beginframe(renderer_t* renderer);
 void renderer_endframe(renderer_t* renderer);
 void renderer_on_resize(renderer_t *renderer, u32 width, u32 height);
