@@ -1,7 +1,7 @@
 #include "core/application.h"
 #include "core/logger/logger.h"
 
-int main(void) {
+32t main(void) {
     log_msg(LOG_LEVEL_INFO, "booting up...");
     application_t app;
     application_create(&app);
