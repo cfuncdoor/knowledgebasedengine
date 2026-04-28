@@ -1,7 +1,9 @@
 #pragma once
 #include "core/types/types.h"
 
-typedef struct {
-    f32 x, y, z, rhw;
-    u32 color;
+#define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZ | D3DFVF_DIFFUSE)
+
+typedef struct vertex_s {
+    float x, y, z;   
+    u32 color;       
 } vertex_t;

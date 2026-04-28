@@ -1,7 +1,8 @@
 #pragma once
+#include "renderer/renderer.h"
 #include "types/types.h"
 #include "window/window.h"
-#include "renderer/renderer.h"
+
 
 typedef struct {
     b8 is_running;

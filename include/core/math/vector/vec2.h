@@ -1,7 +1,6 @@
 #pragma once
 #include "core/types/types.h"
-
-typedef struct {
+typedef struct vec2_s {
     f32 x, y;
 } vec2_t;
 

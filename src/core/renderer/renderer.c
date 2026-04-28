@@ -1,7 +1,6 @@
 #include "core/renderer/renderer.h"
 #include "core/logger/logger.h"
 #include "core/renderer/dx9.h"
-#include "core/math/vertex/vertex.h"
 
 void renderer_initialize(renderer_t *renderer, window_t* window) 
 {
@@ -17,17 +16,6 @@ void renderer_initialize(renderer_t *renderer, window_t* window)
                     window->details.width, 
                     window->details.height);
 
-    vertex_t vertices[] = {
-        { 100.0f, 100.0f, 0.0f, 1.0f, D3DCOLOR_XRGB(255, 0, 0) },
-        { 300.0f, 100.0f, 0.0f, 1.0f, D3DCOLOR_XRGB(0, 255, 0) }, 
-        { 100.0f, 300.0f, 0.0f, 1.0f, D3DCOLOR_XRGB(0, 0, 255) }, 
-        { 300.0f, 300.0f, 0.0f, 1.0f, D3DCOLOR_XRGB(255, 255, 255) }
-    };
-    u32 v_count = sizeof(vertices) / sizeof(vertex_t);
-
-    log_msg(LOG_LEVEL_INFO, "creating the directX vertex buffer");
-    dx9_create_buffer(&renderer->dx, vertices, v_count);
-
     log_msg(LOG_LEVEL_INFO, "initialized the renderer successfully!");
     renderer->window = window; // assign internal renderer_s::window_t
 }
@@ -42,15 +30,8 @@ void renderer_beginframe(renderer_t *renderer)
 
 void renderer_endframe(renderer_t *renderer) 
 {
-    LPDIRECT3DDEVICE9 dev = renderer->dx.context.device.handle;
-    
-    u32 prim_count = renderer->dx.resource.buffer.v_buffer.vertex_count - 2;
-    if (prim_count > 0) {
-        dev->lpVtbl->DrawPrimitive(dev, D3DPT_TRIANGLESTRIP, 0, prim_count);
-    }
-
-    dx9_endscene(dev);
-    dx9_present(dev);
+    dx9_endscene(renderer->dx.context.device.handle);
+    dx9_present(renderer->dx.context.device.handle);
     renderer->state.is_rendering = false;
 }
 

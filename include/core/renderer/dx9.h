@@ -9,12 +9,13 @@ typedef struct dx9_device_s {
 } dx9_device_t;
 
 typedef struct dx9_vertex_buffer_s {
-    u32 size;
-    u32 vertex_count;
+    u32 capacity_bytes;
+    u32 vertex_count;   
+    u32 stride;       
     IDirect3DVertexBuffer9* buffer;
 } dx9_vertex_buffer_t;
 
-typedef struct dx9_buffer_s{
+typedef struct dx9_buffer_s {
     dx9_vertex_buffer_t v_buffer;
 } dx9_buffer_t;
 
@@ -43,5 +44,5 @@ void dx9_setup_for_drawing(LPDIRECT3DDEVICE9 device, IDirect3DVertexBuffer9* buf
 void dx9_destroy(dx9_t* dx);
 void dx9_destroy_buffer(dx9_t* dx);
 void dx9_device_create(dx9_t* dx, HWND hwnd, u32 width, u32 height);
-void dx9_create_buffer(dx9_t* dx, void* data, u32 vertex_count);
+void dx9_vertex_buffer_update(dx9_t* dx, void* data, u32 vertex_count);
 void dx9_device_reset(dx9_t *dx, u32 width, u32 height);

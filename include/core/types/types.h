@@ -25,7 +25,7 @@ typedef struct string_view_s {
     u64 len;
 } string_view;
 
-typedef struct color_s{
+typedef struct color_s {
     union {
         struct {
             u8 a, r, g, b;

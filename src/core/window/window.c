@@ -19,6 +19,9 @@ static LRESULT CALLBACK window_callback(HWND hwnd, UINT uMsg, WPARAM wParam, LPA
         case WM_SYSKEYUP:
             return 0;
 
+        case WM_SIZE:
+            return 0;
+
         case WM_MOUSEMOVE:
             return 0;
 

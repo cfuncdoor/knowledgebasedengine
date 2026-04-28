@@ -12,7 +12,11 @@ add_executable(knowledge
     src/core/types/color.c
     include/core/renderer/dx9.h
     include/core/window/win32.h
-    src/core/renderer/dx9.c)
+    src/core/renderer/dx9.c
+    include/core/math/vector/vec3.h
+    include/core/math/matrix/matrix.h
+    src/core/math/matrix/matrix.c
+    src/core/math/vector/vec3.c)
 
 target_link_libraries(knowledge PRIVATE d3d9)
 

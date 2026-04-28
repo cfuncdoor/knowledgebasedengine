@@ -1,7 +1,6 @@
 #pragma once
 #include <windows.h>
 #include "core/types/types.h"
-#include "core/renderer/dx9.h"
 #include "win32.h"
 
 typedef struct window_details_s {
@@ -13,7 +12,6 @@ typedef struct window_details_s {
 
 typedef struct window_s {
     win32_t win;
-    dx9_t dx;
     window_details_t details;
 } window_t;
 

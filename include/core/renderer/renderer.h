@@ -16,5 +16,5 @@ typedef struct renderer_s {
 void renderer_initialize(renderer_t* renderer, window_t* window);
 void renderer_beginframe(renderer_t* renderer);
 void renderer_endframe(renderer_t* renderer);
-void renderer_on_resize(renderer_t *renderer, u32 width, u32 height);
+void renderer_on_resize(renderer_t* dx, u32 width, u32 height);
 void renderer_destroy(renderer_t* renderer);
