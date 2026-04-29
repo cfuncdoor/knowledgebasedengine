@@ -8,6 +8,7 @@ typedef struct mat4_s {
 } mat4_t;
 
 void mat4_identity(mat4_t* mat);
+void mat4_translate(mat4_t* mat, f32 x, f32 y, f32 z);
 void mat4_rotate_y(mat4_t* mat, f32 angle);
 void mat4_rotate_x(mat4_t* mat, f32 angle);
 void mat4_perspective(mat4_t* mat, f32 fov, f32 aspect, f32 near, f32 far);

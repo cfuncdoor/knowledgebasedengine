@@ -8,26 +8,48 @@ void mat4_identity(mat4_t* mat) {
     }
 }
 
+void mat4_translate(mat4_t* mat, f32 x, f32 y, f32 z) {
+    mat->m[3][0] += x;
+    mat->m[3][1] += y;
+    mat->m[3][2] += z;
+}
+
 void mat4_rotate_y(mat4_t* mat, f32 angle) {
-    mat4_identity(mat);
+    if (angle == 0.0f) return;
     f32 c = cosf(angle);
     f32 s = sinf(angle);
-
-    mat->m[0][0] = c;
-    mat->m[0][2] = s;
-    mat->m[2][0] = -s;
-    mat->m[2][2] = c;
+    
+    mat4_t tmp;
+    for (int i = 0; i < 4; i++) for (int j = 0; j < 4; j++) tmp.m[i][j] = mat->m[i][j];
+    
+    mat->m[0][0] = tmp.m[0][0] * c + tmp.m[2][0] * s;
+    mat->m[0][1] = tmp.m[0][1] * c + tmp.m[2][1] * s;
+    mat->m[0][2] = tmp.m[0][2] * c + tmp.m[2][2] * s;
+    mat->m[0][3] = tmp.m[0][3] * c + tmp.m[2][3] * s;
+    
+    mat->m[2][0] = tmp.m[2][0] * c - tmp.m[0][0] * s;
+    mat->m[2][1] = tmp.m[2][1] * c - tmp.m[0][1] * s;
+    mat->m[2][2] = tmp.m[2][2] * c - tmp.m[0][2] * s;
+    mat->m[2][3] = tmp.m[2][3] * c - tmp.m[0][3] * s;
 }
 
 void mat4_rotate_x(mat4_t* mat, f32 angle) {
-    mat4_identity(mat);
+    if (angle == 0.0f) return;
     f32 c = cosf(angle);
     f32 s = sinf(angle);
-
-    mat->m[1][1] = c;
-    mat->m[1][2] = -s;
-    mat->m[2][1] = s;
-    mat->m[2][2] = c;
+    
+    mat4_t tmp;
+    for (int i = 0; i < 4; i++) for (int j = 0; j < 4; j++) tmp.m[i][j] = mat->m[i][j];
+    
+    mat->m[1][0] = tmp.m[1][0] * c + tmp.m[2][0] * s;
+    mat->m[1][1] = tmp.m[1][1] * c + tmp.m[2][1] * s;
+    mat->m[1][2] = tmp.m[1][2] * c + tmp.m[2][2] * s;
+    mat->m[1][3] = tmp.m[1][3] * c + tmp.m[2][3] * s;
+    
+    mat->m[2][0] = tmp.m[2][0] * c - tmp.m[1][0] * s;
+    mat->m[2][1] = tmp.m[2][1] * c - tmp.m[1][1] * s;
+    mat->m[2][2] = tmp.m[2][2] * c - tmp.m[1][2] * s;
+    mat->m[2][3] = tmp.m[2][3] * c - tmp.m[1][3] * s;
 }
 
 void mat4_perspective(mat4_t* mat, f32 fov, f32 aspect, f32 near, f32 far) {

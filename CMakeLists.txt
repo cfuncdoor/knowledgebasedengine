@@ -16,7 +16,14 @@ add_executable(knowledge
     include/core/math/vector/vec3.h
     include/core/math/matrix/matrix.h
     src/core/math/matrix/matrix.c
-    src/core/math/vector/vec3.c)
+    src/core/math/vector/vec3.c
+    src/core/ecs/entity.c
+    src/core/ecs/component.c
+    src/core/ecs/system.c
+    src/core/ecs/world.c
+    src/core/ecs/components.c
+    src/core/ecs/render_system.c
+    src/core/ecs/movement_system.c)
 
 target_link_libraries(knowledge PRIVATE d3d9)
 

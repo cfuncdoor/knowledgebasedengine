@@ -2,6 +2,8 @@
 #include "renderer/renderer.h"
 #include "types/types.h"
 #include "window/window.h"
+#include "ecs/world.h"
+#include "ecs/render_system.h"
 
 
 typedef struct {
@@ -23,6 +25,7 @@ typedef struct {
     application_details_t details;
     window_t window;
     renderer_t renderer;
+    world ecs;
 } application_t;
 
 void application_create(application_t* app);
